@@ -1,0 +1,9 @@
+module half_adder(
+    input  a,
+    input  b,
+    output d,
+    output br
+);
+    assign br   = a ^ b;
+    assign d =~ a & b;
+endmodule
