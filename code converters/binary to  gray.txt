@@ -1,0 +1,38 @@
+// binary to  gray   using gate level
+
+module b2g(
+input b0,b1,b2,b3,
+output g0,g1,g2,g3);
+buf(g0,b0);
+xor(g1,b0,b1);
+xor(g2,b1,b2);
+xor(g3,b2,b3);
+endmodule
+
+
+
+//  binary to  gray   using dataflow
+
+module b2g(
+input b0,b1,b2,b3,
+output g0,g1,g2,g3);
+assign g0=b0;
+assign g1=b0^b1;
+assign g2=b2^b1;
+assign g3=b2^b3;
+endmodule
+
+
+
+//  binary to  gray   using dataflow  m2
+
+module b2g(
+input [3:0],
+output [3:0]);
+
+assign g = b ^ (b >> 1);
+
+
+ 
+endmodule
+
