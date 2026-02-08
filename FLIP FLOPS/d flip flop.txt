@@ -1,0 +1,30 @@
+//code 
+module d_ff(output reg q,input clk,rst,d);
+  always@(posedge clk or posedge rst) begin
+    if (rst)
+      q<=0;
+    else
+      q<=d;
+    
+  end
+endmodule
+
+
+// test bench
+module dff_tb();
+   reg clk,rst,d;
+  wire q;
+  
+  d_ff DUT(q,clk,rst,d);
+  always #5 clk=~clk;
+  
+  initial begin
+    $monitor ("time =%0t,clock=%b,rst=%b,d=%b,q=%b", $time,clk,rst,d,q);
+   
+    	//intially clk= 0; rst=1'b0;d=1'b1;#5 ;
+
+           rst=1'b0;d=1'b1;#5 ;
+           rst=1'b0;d=1'b0;#5 ;
+  #5$finish   ;
+  end
+endmodule

@@ -1,0 +1,46 @@
+module jk(input j,k,clk,rst,output reg q );
+  always@(posedge clk or posedge rst)
+    begin
+      if(rst)
+        q<=1'b0;
+     
+      else if (j&k)
+        q<=~q;
+ else if(j)
+        q<=1'b1;
+      else if(k)
+        q<=1'b0;
+      else
+        q<=q;
+      
+       end
+endmodule
+
+//tb
+module jktb();
+  reg j,k,clk,rst;
+  wire q;
+  
+  jk DUT(j,k,clk,rst,q);
+  always #5 clk=~clk;
+  
+  initial begin
+    $monitor ("time =%0t,clock=%b,rst=%b,j=%b,k=%b,q=%b", $time,clk,rst,j,k,q);
+    
+    //intially
+    clk=0;rst=1;j=0;k=0;
+    
+   j=1;k=0 ;#5;
+    j=0;k=0 ;#5;j=1;k=0 ;#5;
+    j=1;k=1 ;#5;
+    
+    
+    rst=0;j=1;k=0 ;#5;j=1;k=0 ;#5;
+    j=0;k=0 ;#5; j=0;k=0 ;#5;
+    j=0;k=1 ;#5;j=0;k=1 ;#5;
+    j=1;k=1 ;#5;j=1;k=1 ;#5;
+    
+    
+  #5$finish   ;
+  end
+endmodule

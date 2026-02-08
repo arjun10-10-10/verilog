@@ -1,0 +1,44 @@
+module srff(input s,r,c,rt,output reg q);
+  always@ (posedge c or posedge rt)
+    begin
+      if(rt)
+        q<=1'b0;
+      else if(s&r)
+        q<=1'bx;
+      else if(s)
+        q<=1'b1;
+      else if(r)
+        q<=1'b0;
+      else
+        q<=q;
+      
+    end
+endmodule
+// testbench 
+module tb ();
+  reg s,r,c,rt;
+  wire q;
+  
+  srff DUT (s,r,c,rt,q);
+  always #5 c=~c;
+  
+ initial
+   begin
+     $monitor("time=%0t,s=%b,r=%b,c=%b,rt=%b,q=%b",$time,s,r,c,rt,q);
+     //
+     c=0;s=0;r=0;  rt=1;#5;
+     
+    rt=0; s=1'b0;r=1'b0;#5;
+     s=1'b0;r=1'b0;#5;
+     s=1'b1;r=1'b0;#5;
+     s=1'b1;r=1'b0;#5;
+     s=1'b0;r=1'b1;#5;
+     s=1'b0;r=1'b1;#5;
+     s=1'b1;r=1'b1;#5;
+     s=1'b1;r=1'b1;#5;
+     
+     
+     #5 $finish ;
+   end
+endmodule
+  

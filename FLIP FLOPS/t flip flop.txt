@@ -1,0 +1,38 @@
+module t_ff(output reg q,input clock,rst,t);
+  
+  always @(posedge clock or posedge rst)begin
+    if (rst) 
+    q <= 1'b0;
+  else     q <= q ^ t;
+
+   end
+endmodule
+
+/*always @(posedge clk or posedge rst)
+  if (rst) q <= 0;
+  else     q <= q ^ t;
+*/
+
+
+
+module tb();
+  wire q;
+  reg clock,rst,t;
+  
+  t_ff DUT(q,clock,rst,t);
+  always #5 clock=~clock;
+
+  initial begin
+    $monitor ("time =%0t,clock=%b,rst=%b,t=%b,q=%b", $time,clock,rst,t,q);
+
+    //intially
+    clock= 0; rst=1'b0;t=1'b1;#5 ;
+
+           rst=1'b1;t=1'b1;#5 ;
+           rst=10'b0;t=1'b0;#5 ;rst=1'b0;t=1'b0;#5 ;rst=1'b0;t=1'b0;#5 ;
+    
+    #5 $finish;
+
+    
+  end
+endmodule
