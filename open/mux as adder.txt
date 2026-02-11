@@ -1,0 +1,17 @@
+//sum of full adder 
+
+module mux(input b,c,a,     // b c as selection lines
+output y);                  
+wire w1,w2,w3,w4;
+
+and(w1,~b,~c,a);
+and(w2,~b,c,~a);
+and(w3,b,~c,~a);
+and(w4,b,c,a);
+
+or(y,w1,w3,w2,w4);
+endmodule
+
+
+
+
