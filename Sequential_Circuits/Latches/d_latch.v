@@ -1,0 +1,6 @@
+module dlatch(output reg q,input clk,d);
+  always@(clk or d) begin
+    if(clk)
+      q<=d;
+    end
+endmodule
