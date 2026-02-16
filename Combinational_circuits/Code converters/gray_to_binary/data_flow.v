@@ -1,0 +1,11 @@
+module b2g(
+output b0,b1,b2,b3,
+input g0,g1,g2,g3);
+
+
+assign b0=g0;
+assign b1=g1^b0;
+assign b2=g2^b1;
+assign b3=g3^b2;
+
+endmodule
